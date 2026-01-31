@@ -12,9 +12,4 @@ def solution(numbers, target):
             
         leaves = temp
     
-    # 모든 경우의 수 중 타겟과 같은 개수 세기
-    for i in leaves :
-        if i == target :
-            answer += 1
-    
-    return answer
+    return leaves.count(target)
