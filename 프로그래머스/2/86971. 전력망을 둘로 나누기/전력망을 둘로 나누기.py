@@ -1,14 +1,6 @@
 from collections import deque
 
-def solution(n, wires):
-    # 1. 인접 리스트 만들기
-    graph = [[] for _ in range(n + 1)]
-    for a, b in wires:
-        graph[a].append(b)
-        graph[b].append(a)
-
-    # 2. BFS 함수 (전선 하나 끊은 상태에서 노드 개수 세기)
-    def bfs(start, cut_a, cut_b):
+def bfs(n, graph, start, cut_a, cut_b):
         visited = [False] * (n + 1)
         queue = deque([start])
         visited[start] = True
@@ -29,11 +21,18 @@ def solution(n, wires):
 
         return count
 
-    # 3. 모든 전선을 하나씩 끊어보며 최소 차이 계산
+def solution(n, wires):
+    # 인접 리스트 만들기
+    graph = [[] for _ in range(n + 1)]
+
+    for a, b in wires:
+        graph[a].append(b)
+        graph[b].append(a)
+
+    # 모든 전선을 하나씩 끊어보며 최소 차이 계산
     answer = n
     for a, b in wires:
-        cnt = bfs(a, a, b)
-        diff = abs(n - 2 * cnt)
-        answer = min(answer, diff)
+        cnt = bfs(n, graph, a, a, b)
+        answer = min(answer, abs(n - 2 * cnt))
 
     return answer
