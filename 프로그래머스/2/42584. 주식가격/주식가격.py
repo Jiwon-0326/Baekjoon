@@ -7,5 +7,4 @@ def solution(prices):
             if prices[i] > prices[j] :
                 answer[i] = j-i
                 break
-        
     return answer
